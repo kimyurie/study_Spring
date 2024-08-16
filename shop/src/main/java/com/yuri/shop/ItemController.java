@@ -48,13 +48,10 @@ public class ItemController {
     }
 
 
-
-
-
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) {
 
-        try{
+        try {
 //            Optional<Item> result = itemRepository.findById(id);
 //            if (result.isPresent()){
 //                // 가져온 데이터 html에 넣기
@@ -64,12 +61,47 @@ public class ItemController {
 //                return "redirect:/list";
 //            }
             throw new Exception("이런저런에러임");
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return "redirect:/list";
         }
 
 
     }
+
+
+    @GetMapping("/edit/{id}")
+    String edit(Model model, @PathVariable Long id) {
+
+        // 수정페이지에 기존내용 채워넣기
+        // DB에서 1번 글 가져와서 여기다가 넣기
+//        Optional<Item> result = itemRepository.findById(1L);
+        Optional<Item> result = itemRepository.findById(id);
+
+        if (result.isPresent()) {
+            model.addAttribute("data", result.get());
+            return "edit.html";
+        } else {
+            return "redirect:/list";
+        }
+
+    }
+
+
+    @PostMapping("/edit")
+    String editItem(String title, Integer price, Long id) {
+        // 1번 상품 수정기능
+        Item item = new Item();
+//        item.setId(1L); // id가 1인 행이 있으면 아래 내용으로 덮어쓰기(수정)
+        item.setId(id);
+        item.setTitle(title); // title - 유저가 보낸 제목으로
+        item.setPrice(price); // price - 유저가 보낸 가격으로
+        itemRepository.save(item); // 수정
+
+        return "redirect:/list";
+    }
+
+
+
 
 }
