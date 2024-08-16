@@ -15,6 +15,7 @@ import java.util.*;
 public class ItemController {
 
     private final ItemRepository itemRepository;
+    private final ItemService itemService;
 
 
     @GetMapping("/list")
@@ -32,33 +33,43 @@ public class ItemController {
         return "write.html";
     }
 
+    // 함수 하나에는 한가지 기능만 담기 권장
     @PostMapping("/add")
     String addPost(String title, Integer price) {
-        Item item = new Item();
-        item.setTitle(title);
-        item.setPrice(price);
-        itemRepository.save(item);
+        // 아래 코드 ItemService로 옮기기
+//        Item item = new Item();
+//        item.setTitle(title);
+//        item.setPrice(price);
+//        itemRepository.save(item);
 
-
+        // => service에서 불러와서 사용
+        itemService.saveItem(title, price);
         return "redirect:/list";
     }
+
+
+
 
 
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) {
 
-        Optional<Item> result = itemRepository.findById(id);
-        if (result.isPresent()){
-            // 가져온 데이터 html에 넣기
-            model.addAttribute("data", result.get());
-            return "detail.html";
-        } else {
+        try{
+//            Optional<Item> result = itemRepository.findById(id);
+//            if (result.isPresent()){
+//                // 가져온 데이터 html에 넣기
+//                model.addAttribute("data", result.get());
+//                return "detail.html";
+//            } else {
+//                return "redirect:/list";
+//            }
+            throw new Exception("이런저런에러임");
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
             return "redirect:/list";
         }
+
+
     }
 
 }
-
-
-
-
