@@ -21,7 +21,33 @@
     <p th:text="${i.price + '원'}">7억</p>
     <!-- 상품마다 수정페이지로 이동 -->
     <a th:href="@{|/edit/${i.id}|}">✏️</a>
+    <span th:onclick="fetch('/item?id=[[${i.id}]]', {method : 'DELETE' })
+        .then(r => r.text())
+        .then(()=>{
+            location.reload();
+        })
+
+    ">🗑️</span>
 </div>
+
+<button class="btn">버튼</button>
+
+<script>
+<!-- ajax쓰면 새로고침 없이도 서버로 요청 가능 -->
+<!--    document.querySelectorAll('.btn')[0].addEventListener('click', function(){-->
+<!--    fetch('/test1', {-->
+<!--        method : 'POST',-->
+<!--&lt;!&ndash;    서버로 데이터 전송도 가능    &ndash;&gt;-->
+<!--        headers : { 'Content-Type' : 'application/json' },-->
+<!--        body : JSON.stringify({name : 'kim'})-->
+<!--    })-->
+
+
+<!-- 서버로 데이터 보내고 싶으면 query string으로 URL에 숨겨서 전송도 가능 -->
+document.querySelectorAll('.btn')[0].addEventListener('click', function(){
+    fetch('/test2?name=kim&age=20')
+  })
+</script>
 
 </body>
 </html>

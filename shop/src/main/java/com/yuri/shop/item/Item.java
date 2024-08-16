@@ -1,4 +1,4 @@
-package com.yuri.shop;
+package com.yuri.shop.item;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.yuri.shop;
+package com.yuri.shop.item;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,12 +1,10 @@
-package com.yuri.shop;
+package com.yuri.shop.item;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -102,6 +100,25 @@ public class ItemController {
         return "redirect:/list";
     }
 
+//    @PostMapping("/test1")
+////    유저가 ajax body로 보낸 데이터 출력은
+//    String test1(@RequestBody Map<String, Object> body) {
+//        System.out.println(body.get("name"));
+//        return "redirect:/list";
+//    }
+
+    @GetMapping("/test2")
+    String test2(@RequestParam String name) {
+        System.out.println(name);
+        return "redirect:/list";
+    }
+
+    @DeleteMapping("/item")
+    ResponseEntity<String> deleteItem(@RequestParam Long id){
+        // 서버는 요청받으면 DB에 있던 상품 삭제
+        itemRepository.deleteById(id);
+        return ResponseEntity.status(200).body("삭제완료");
+    }
 
 
 
