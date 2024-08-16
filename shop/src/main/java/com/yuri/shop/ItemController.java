@@ -91,13 +91,14 @@ public class ItemController {
     @PostMapping("/edit")
     String editItem(String title, Integer price, Long id) {
         // 1번 상품 수정기능
-        Item item = new Item();
-//        item.setId(1L); // id가 1인 행이 있으면 아래 내용으로 덮어쓰기(수정)
-        item.setId(id);
-        item.setTitle(title); // title - 유저가 보낸 제목으로
-        item.setPrice(price); // price - 유저가 보낸 가격으로
-        itemRepository.save(item); // 수정
+//        Item item = new Item();
+////        item.setId(1L); // id가 1인 행이 있으면 아래 내용으로 덮어쓰기(수정)
+//        item.setId(id);
+//        item.setTitle(title); // title - 유저가 보낸 제목으로
+//        item.setPrice(price); // price - 유저가 보낸 가격으로
+//        itemRepository.save(item); // 수정
 
+        itemService.editItem(title, price, id);
         return "redirect:/list";
     }
 

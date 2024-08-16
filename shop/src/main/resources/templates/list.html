@@ -19,7 +19,8 @@
     <h4 th:text="${i.title}">바지</h4>
     <a th:href="@{/detail/{id}(id=${i.id})}">링크</a>
     <p th:text="${i.price + '원'}">7억</p>
-    <a href="/edit/1">✏️</a>
+    <!-- 상품마다 수정페이지로 이동 -->
+    <a th:href="@{|/edit/${i.id}|}">✏️</a>
 </div>
 
 </body>
